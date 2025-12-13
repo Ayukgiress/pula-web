@@ -44,16 +44,19 @@ export const ZustandExample = () => {
   const handleSearch = () => {
     if (!selectedSourceLanguage || !query.trim()) return;
     
+
     searchLexemes({
       ismatch: 0,
       search: query,
       src_lang: selectedSourceLanguage.lang_code,
+      with_sense: false,
     });
   };
 
+
   const handleGetDetails = (lexemeId: string) => {
-    if (!selectedSourceLanguage || !selectedTargetLanguage1 || !selectedTargetLanguage2) {
-      alert('Please select all required languages');
+    if (!selectedSourceLanguage || !selectedTargetLanguage1) {
+      alert('Please select source language and at least one target language');
       return;
     }
     

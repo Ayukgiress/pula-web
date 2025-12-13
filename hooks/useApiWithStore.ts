@@ -149,6 +149,7 @@ export const useApiWithStore = () => {
   /**
    * Get the details of a lexeme and store it in the store and local storage
    */
+
   const getLexemeDetails = useCallback(async () => {
     setLexemeLoading(true);
     setLexemeError(null);
@@ -165,8 +166,7 @@ export const useApiWithStore = () => {
     if (
       !clickedLexeme ||
       !selectedSourceLanguage ||
-      !selectedTargetLanguage1 ||
-      !selectedTargetLanguage2
+      !selectedTargetLanguage1
     ) {
       return;
     }
@@ -211,6 +211,7 @@ export const useApiWithStore = () => {
   /**
    * Get the translations of a lexeme and store it in the store and local storage
    */
+
   const getLexemeTranslations = useCallback(async () => {
     setLexemeLoading(true);
     setLexemeError(null);
@@ -227,8 +228,7 @@ export const useApiWithStore = () => {
     if (
       !clickedLexeme ||
       !selectedSourceLanguage ||
-      !selectedTargetLanguage1 ||
-      !selectedTargetLanguage2
+      !selectedTargetLanguage1
     ) {
       return;
     }

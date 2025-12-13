@@ -66,10 +66,10 @@ export default function ResultsPage({
   >([]);
   const [isLoadingDetails, setIsLoadingDetails] = useState(false);
   const [singleLexemeObj, setSingleLexemeObj] = useState<any>(null);
+
   const areLanguagesSelected =
     selectedSourceLanguage &&
-    selectedTargetLanguage1 &&
-    selectedTargetLanguage2;
+    selectedTargetLanguage1;
   const [searchQuery, setSearchQuery] = useState(query || "");
   const [open, setOpen] = useState(false);
   const [contributingLanguage, setContributingLanguage] =
@@ -123,15 +123,16 @@ export default function ResultsPage({
     );
   }, [selectedLexeme]);
 
+
   const handleGetLexemeDetails = useCallback(async () => {
     if (
       !selectedSourceLanguage ||
-      (!selectedTargetLanguage1 && !selectedTargetLanguage2)
+      !selectedTargetLanguage1
     ) {
       toast({
         title: "Languages required",
         description:
-          "Please select source and target languages to get details.",
+          "Please select source and at least one target language to get details.",
         variant: "destructive",
       });
       return;
@@ -232,9 +233,9 @@ export default function ResultsPage({
                     );
                     setSelectedTargetLanguage2(language || null);
                   }}
+
                   placeholder="Select target language 2"
                   label="Target Language 2"
-                  span="*"
                 />
               </div>
             </div>
@@ -317,14 +318,17 @@ export default function ResultsPage({
                     />
                   </div>
                 )}
+
                 <Tabs defaultValue="target1" className="w-full">
-                  <TabsList className="grid w-full grid-cols-2">
+                  <TabsList className={`grid w-full ${selectedTargetLanguage2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
                     <TabsTrigger value="target1">
                       {selectedTargetLanguage1?.lang_label || "Target 1"}
                     </TabsTrigger>
-                    <TabsTrigger value="target2">
-                      {selectedTargetLanguage2?.lang_label || "Target 2"}
-                    </TabsTrigger>
+                    {selectedTargetLanguage2 && (
+                      <TabsTrigger value="target2">
+                        {selectedTargetLanguage2?.lang_label || "Target 2"}
+                      </TabsTrigger>
+                    )}
                   </TabsList>
 
                   <TabsContent value="target1" className="mt-4">
@@ -345,23 +349,25 @@ export default function ResultsPage({
                     />
                   </TabsContent>
 
-                  <TabsContent value="target2" className="mt-4">
-                    <LexemeDetailResultComponent
-                      glossesWithSense={target2LexemeDetails}
-                      title={selectedTargetLanguage2?.lang_label || "Target 2"}
-                      translation={
-                        lexemeTranslations &&
-                        lexemeTranslations.find(
-                          (t: LexemeTranslation) =>
-                            t.trans_language ===
-                            selectedTargetLanguage2?.lang_code
-                        )
-                      }
-                      onContribute={(type) =>
-                        handleContribute(type, selectedTargetLanguage2)
-                      }
-                    />
-                  </TabsContent>
+                  {selectedTargetLanguage2 && (
+                    <TabsContent value="target2" className="mt-4">
+                      <LexemeDetailResultComponent
+                        glossesWithSense={target2LexemeDetails}
+                        title={selectedTargetLanguage2?.lang_label || "Target 2"}
+                        translation={
+                          lexemeTranslations &&
+                          lexemeTranslations.find(
+                            (t: LexemeTranslation) =>
+                              t.trans_language ===
+                              selectedTargetLanguage2?.lang_code
+                          )
+                        }
+                        onContribute={(type) =>
+                          handleContribute(type, selectedTargetLanguage2)
+                        }
+                      />
+                    </TabsContent>
+                  )}
                 </Tabs>
               </div>
             </div>

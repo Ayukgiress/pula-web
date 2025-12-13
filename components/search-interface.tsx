@@ -29,9 +29,7 @@ export default function SearchInterface() {
 
   const areLanguagesSelected =
     selectedSourceLanguage &&
-    selectedTargetLanguage1 &&
-    selectedTargetLanguage2;
-  // const areLanguagesSelected = true;
+    selectedTargetLanguage1;
 
   // Load languages when component mounts
   useEffect(() => {
@@ -105,7 +103,6 @@ export default function SearchInterface() {
             }}
             placeholder="Select target language 2"
             label="Target Language 2"
-            span="*"
           />
         </div>
       </div>
@@ -135,7 +132,7 @@ export default function SearchInterface() {
               Please select a source language and at least one target language to
               enable search
             </p>
-            <Tooltip description="Select your source language (what you're translating from) and one or more target languages (what you're translating to) to search for words and contribute translations." />
+            <Tooltip description="Select your source language (what you're translating from) and at least one target language (what you're translating to) to search for words and contribute translations." />
           </div>
         </div>
       )}
